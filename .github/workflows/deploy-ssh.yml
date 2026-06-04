@@ -23,6 +23,10 @@ jobs:
 
       # 3. 依存関係のインストールとAstroのビルド
       - name: Install dependencies and Build
+
+        env:
+          PUBLIC_MICROCMS_SERVICE_DOMAIN: ${{ secrets.PUBLIC_MICROCMS_SERVICE_DOMAIN }}
+          PUBLIC_MICROCMS_API_KEY: ${{ secrets.PUBLIC_MICROCMS_API_KEY }}
         run: |
           npm ci            # もし pnpm なら pnpm install、yarn なら yarn install --immutable
           npm run build     # Astroのビルドを実行（デフォルトで dist/ フォルダが生成されます）
