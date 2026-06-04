@@ -1,0 +1,22 @@
+---
+import BaseSection from "./BaseSection.astro";
+import BlogList from "../BlogList.astro";
+import { getLatestBlogs } from "../../../utils/content";
+import type { TypeBlog } from "../../../types/type-content-collection";
+import LinkButton from "../../ui/LinkButton.astro";
+
+interface Props {
+  linkButtonPath: string;
+}
+const { linkButtonPath } = Astro.props;
+const latestBlogs:TypeBlog[] = getLatestBlogs(3);
+---
+
+<BaseSection title="ブログ" titleEng="BLOG" bgColor="">
+  <div class="col-span-4 md:col-span-8 lg:col-span-12">
+    <BlogList blogs={latestBlogs} />
+  </div>
+  <div class="col-span-4 md:col-span-8 lg:col-span-12 mx-auto mt-4">
+    <LinkButton href={linkButtonPath} dispName="ブログ一覧へ" size="m" />
+  </div>
+</BaseSection>

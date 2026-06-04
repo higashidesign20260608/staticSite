@@ -1,0 +1,92 @@
+---
+import { BLOG_COLLECTION } from '../../../constants/constant-content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import BlogPostLayout from '../../../layouts/BlogPostLayout.astro';
+import { render } from 'astro:content';
+import { Image } from 'astro:assets';
+import type { TypeBlog } from '../../../types/type-content-collection';
+import BlogListAside from '../../../components/blocks/BlogListAside.astro';
+import { getLatestBlogs } from '../../../utils/content';
+import MainFooter from '../../../components/global/MainFooter.astro';
+import BlogPostAsideCategoryNav from '../../../components/blocks/BlogPostAsideCategoryNav.astro';
+import { getSubNavigationsOfNavigation } from '../../../utils/navigation';
+import type { ItfNavigation } from '../../../types/type-navigation';
+
+const url = Astro.url.href;
+const subNavigations: ItfNavigation[] = getSubNavigationsOfNavigation("blog");
+
+export async function getStaticPaths() {
+	return (
+		BLOG_COLLECTION.map((blog: TypeBlog) => {
+			return {
+				params: {category: blog.data.category.id, slug: blog.id},
+				props: {dynamicBlogs: blog},
+			}
+		})
+	)
+};
+
+const { category } = Astro.params;
+const { dynamicBlogs } = Astro.props;
+// const { Content } = await render(dynamicBlogs);
+const content: string = dynamicBlogs.data.content;
+
+
+const latestBlogs: TypeBlog[] = getLatestBlogs(5);
+const pageTitle = `${dynamicBlogs.data.title} | ${dynamicBlogs.data.category.name} | ブログ`;
+const pageDescription = `${dynamicBlogs.data.description}`;
+---
+
+<BaseLayout pageTitle={pageTitle} pageDescription={pageDescription} ogpType="article" ogpUrl={url}>
+	<BlogPostLayout currentPageUrl={url}>
+		<div class="grid-main grid-row-3 py-10">
+			<article class=" row-start-1 col-span-4 md:col-span-8 lg:col-span-8">
+				<div class="mb-4">
+					<p class="mb-4 text-4xl">{dynamicBlogs.data.title}</p>
+					<div class="flex gap-4">
+						<span class="py-1 text-xs">{dynamicBlogs.data.publishedAt.substring(0,10)}</span>
+						<span class="py-1 px-3 rounded-md text-xs border">{dynamicBlogs.data.category.name}</span>
+					</div>
+				</div>
+				
+				
+				<figure
+					class="
+					mb-8
+					"
+				>
+					{dynamicBlogs.data.image.url && dynamicBlogs.data.image.alt && (
+						<img
+							src={dynamicBlogs.data.image.url}
+							alt={dynamicBlogs.data.image.alt}
+							class="object-cover aspect-video rounded-md"            
+						/>
+					)}
+				</figure>	
+				
+				<div class="content-html" set:html={content}></div>
+			</article>
+
+
+
+			<div class="row-start-2 col-span-4 md:col-span-8 lg:col-span-12">
+				<MainFooter currentPageUrl={url} shareSnsText={pageDescription} />
+			</div>
+
+
+
+
+			<aside class="row-start-3 col-span-4 md:col-span-8 lg:row-start-1 lg:col-span-4 flex flex-col gap-12">
+				<div>
+					<p class="text-xl mb-6">最新の記事</p>
+					<BlogListAside blogs={latestBlogs}/>
+				</div>
+				<div>
+					<p class="text-xl mb-6">カテゴリ</p>
+					<BlogPostAsideCategoryNav subNavigations={subNavigations}/>
+				</div>
+			</aside>
+		</div>
+	</BlogPostLayout>
+
+</BaseLayout>

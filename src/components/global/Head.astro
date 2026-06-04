@@ -1,0 +1,38 @@
+---
+const siteTitle = import.meta.env.SITE_TITLE;
+const siteUrl = import.meta.env.SITE;
+
+export interface metaProps {
+	pageTitle: string;
+  pageDescription: string;
+  ogpType: "website" | "article";
+  ogpUrl: string;
+  ogpImageUrl?: string;
+}
+interface Props extends metaProps {}
+const { pageTitle, pageDescription, ogpType, ogpUrl, ogpImageUrl = "icon-ogp-1200×630.png" } = Astro.props
+---
+
+<head prefix="og: http://ogp.me/ns#">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width" />
+  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="Monberable" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="mask-icon" href="/favicon.svg" color="#5bbad5">
+  <meta name="generator" content={Astro.generator} />
+  <title>{pageTitle} | {siteTitle}</title>
+  <meta name="description" content={pageDescription}>
+  <meta name="twitter:card" content="summary">
+  <meta property="og:title" content=`${pageTitle} | ${siteTitle}`>
+  <meta property="og:type" content={ogpType}>
+  <meta property="og:url" content={ogpUrl}>
+  <meta property="og:image" content=`${siteUrl}/${ogpImageUrl}`>
+  <meta property="og:site_name" content={siteTitle}>
+  <meta property="og:description" content={pageDescription}>
+  <meta property="og:locale" content="ja_JP">
+  <meta name="google-site-verification" content="gQnakW079PecI2biOlnYiPYFqGDMAFJGjdOt3EXDnME" />
+</head>

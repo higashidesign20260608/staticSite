@@ -1,0 +1,18 @@
+---
+import BaseSection from "./BaseSection.astro";
+import LinkButton from "../../ui/LinkButton.astro";
+
+interface Props {
+  linkButtonPath: string;
+}
+const { linkButtonPath } = Astro.props;
+---
+
+<BaseSection title="ショップ" titleEng="SHOP" bgColor="">
+  <div class="col-span-4 md:col-span-8 lg:col-span-12">
+    <p class="text-center">制作作品を、「minne」、「BASE」で販売しております。</p>
+  </div>
+  <div class="col-span-4 md:col-span-8 lg:col-span-12 mx-auto mt-4">
+    <LinkButton href={linkButtonPath} dispName="ショップへ" size="m" />
+  </div>
+</BaseSection>

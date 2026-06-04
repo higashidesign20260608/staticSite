@@ -1,0 +1,111 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogPostLayout from '../../layouts/BlogPostLayout.astro';
+import MainFooter from '../../components/global/MainFooter.astro';
+
+const url = Astro.url.href;
+const pageTitle = "プレビュー";
+const pageDescription = "プレビュー";
+
+---
+
+<BaseLayout pageTitle={pageTitle} pageDescription={pageDescription} ogpType="article" ogpUrl={url}>
+	<BlogPostLayout currentPageUrl={url} isPreview={true}>
+		<div class="grid-main grid-row-3 py-10">
+			<article class=" row-start-1 col-span-4 md:col-span-8 lg:col-span-8">
+				<div class="mb-4">
+					<p id="blogTitle" class="mb-4 text-4xl">プレビュー</p>
+					<div class="flex gap-4">
+						<span id="blogPublished" class="py-1 text-xs">プレビュー</span>
+						<span id="blogCategory" class="py-1 px-3 rounded-md text-xs border">プレビュー</span>
+					</div>
+				</div>
+				<figure
+					class="
+					mb-8
+					"
+				>
+					<img
+						id="blogImage"
+						src=""
+						alt=""
+						class="object-cover aspect-video rounded-md"
+					/>
+				</figure>	
+				<div id="blogContent" class="content-html">プレビュー</div>
+			</article>
+			<div class="row-start-2 col-span-4 md:col-span-8 lg:col-span-12">
+				<MainFooter currentPageUrl={url} shareSnsText={pageDescription} />
+			</div>
+			<aside class="row-start-3 col-span-4 md:col-span-8 lg:row-start-1 lg:col-span-4 flex flex-col gap-12">
+				<div>
+					<p class="text-xl mb-6">最新の記事</p>
+					<p>※プレビューのため表示なし</p>
+				</div>
+				<div>
+					<p class="text-xl mb-6">カテゴリ</p>
+					<p>※プレビューのため表示なし</p>
+				</div>
+			</aside>
+		</div>
+	</BlogPostLayout>
+</BaseLayout>
+
+
+<script>
+  import { getBlogDetail } from '../../library/microcms';
+
+  const params = new URLSearchParams(window.location.search);
+  const contentId = params.get("contentId");
+  const draftKey = params.get("draftKey");
+
+	if (!contentId && !draftKey) {
+		alert("CMSよりプレビュー実施してください");
+	}
+	if (contentId && !draftKey) {
+		alert("下書きのプレビューではありません");
+	}
+
+  if (contentId && draftKey) {
+    getBlogDetail(contentId, { draftKey }).then((data) => {
+
+			if (!data) {
+				alert("下書きデータが取得できませんでした");
+				return;
+			}
+
+			// head
+			const headDescription = document.querySelector('meta[name="description"]');
+			const headOgTitle = document.querySelector('meta[property="og:title"]');
+			const headOgDescription = document.querySelector('meta[property="og:description"]');
+			const headOgImageUrl = document.querySelector('meta[property="og:image"]');
+
+			document.title = data.title;
+			headDescription && (headDescription.setAttribute('content', data.description));
+			headOgTitle && (headOgTitle.setAttribute('content', `${data.meta.title} | Monberable`));
+			headOgDescription && (headOgDescription.setAttribute('content', data.meta.description));
+			headOgImageUrl && (headOgImageUrl.setAttribute('content', data.meta.image.url));
+
+			// body
+			const blogTitleElement = document.getElementById("blogTitle");
+			const blogPublishedElement = document.getElementById("blogPublished");
+			const blogCategoryElement = document.getElementById("blogCategory");
+			const blogImageElement = document.getElementById("blogImage") as HTMLImageElement;
+			const blogContent = document.getElementById("blogContent");
+
+			blogTitleElement && (blogTitleElement.innerHTML = data.title);
+			blogPublishedElement && (blogPublishedElement.innerHTML = new Date().toLocaleDateString("sv-SE"));
+
+			blogCategoryElement && (blogCategoryElement.innerHTML = data.category.name);
+			if (blogImageElement) {
+				if (!data.image.alt) {
+					alert("サムネイル画像のAlt(代替テキスト)が設定されていないため、サムネイル画像の表示ができません。");
+				} else {
+					blogImageElement.src = data.image.url;
+					blogImageElement.alt = data.image.alt;
+				}
+			}
+			blogContent && (blogContent.innerHTML = data.content);
+    });
+  }
+</script>

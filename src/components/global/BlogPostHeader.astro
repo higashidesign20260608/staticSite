@@ -1,0 +1,19 @@
+---
+import Breadcrumb from "../ui/Breadcrumb.astro";
+interface Props {
+  currentPageUrl: string;
+  isPreview?: boolean;
+};
+const { currentPageUrl, isPreview = false } = Astro.props;
+
+---
+
+<div
+  class="
+    grid-main
+  "
+>
+  <div class="col-span-4 md:col-span-8 lg:col-span-12">
+    <Breadcrumb currentPageUrl={currentPageUrl} isPreview={isPreview} />
+  </div>
+</div>

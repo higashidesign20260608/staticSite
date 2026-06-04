@@ -1,0 +1,28 @@
+---
+import MainHeader from "../components/global/MainHeader.astro";
+import MainFooter from "../components/global/MainFooter.astro";
+import Motion from "../components/ui/Motion.astro";
+
+interface Props {
+  currentPageUrl: string;
+  pageTitle: string;
+  pageTitleEng: string;
+  pageSubTitle?: string;
+  shareSnsText: string;
+  isPreview?: boolean;
+}
+
+const { currentPageUrl, pageTitle, pageTitleEng, pageSubTitle = "", shareSnsText, isPreview = false } = Astro.props;
+---
+
+<main class="pt-20 bg-base-c">
+  <Motion>
+    <div class="container-main">
+      <MainHeader currentPageUrl={currentPageUrl} pageTitle={pageTitle} pageTitleEng={pageTitleEng}, pageSubTitle={pageSubTitle} isPreview={isPreview} />
+        <div class="grid-main py-10">
+          <slot />
+        </div>
+      <MainFooter currentPageUrl={currentPageUrl} shareSnsText={shareSnsText} />
+    </div>
+  </Motion>
+</main>

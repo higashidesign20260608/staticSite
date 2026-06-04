@@ -1,0 +1,52 @@
+---
+import { Image } from 'astro:assets';
+import type { TypeBlog } from '../../types/type-content-collection';
+interface Props {
+  blogs: TypeBlog[];
+};
+const { blogs } = Astro.props;
+---
+
+<ul class="w-full grid gap-4">
+  {blogs.map((blog: TypeBlog) => (
+    <li class="hover:-translate-y-1 duration-300">
+      <a href={`/blog/${blog.data.category.id}/${blog.id}`}
+        class="
+          duration-300
+        "
+      >
+        <article class="flex h-25 overflow-hidden">
+
+          <figure
+            class="
+              min-w-25
+              max-w-25
+              rounded-md overflow-hidden
+            "
+          >
+            {blog.data.image.url && blog.data.image.alt && (
+              <img
+                src={blog.data.image.url}
+                alt={blog.data.image.alt}
+                class="size-full object-cover"
+              />
+            )}
+          </figure>
+
+          <div class="w-full flex flex-col gap-2 justify-center px-4">
+            <p class="break-all">
+              {blog.data.title}
+            </p>
+
+            <div>
+              <span class="py-1 px-3 rounded-md text-xs border">
+                {blog.data.category.name}
+              </span>
+            </div>
+          </div>
+
+        </article>
+      </a>
+    </li>
+  ))}
+</ul>

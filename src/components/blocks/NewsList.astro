@@ -1,0 +1,48 @@
+---
+import type { TypeNews } from '../../types/type-content-collection';
+interface Props {
+  news: TypeNews[];
+};
+const { news } = Astro.props;
+---
+
+<ul class="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-9">
+  {news.map((newsItem: TypeNews) => (
+    <li class="col-span-4 md:col-span-6 lg:col-span-9 border-b py-4 duration-300 hover:scale-101">
+      <a href={`/news/${newsItem.data.category.id}/${newsItem.id}`}
+        class="
+          md:flex md:gap-6
+        "
+      >
+        <div
+          class="
+            flex gap-4 md:gap-6 items-center mb-2 md:mb-0
+          "
+        >
+          <span
+            class="
+              
+            "
+          >
+            {newsItem.data.publishedAt.substring(0,10)}
+          </span>
+          <span
+            class="
+              rounded-md border text-xs text-center w-20
+            "
+          >
+            {newsItem.data.category.name}
+          </span>
+        </div>
+
+        <span
+          class="
+          "
+        >
+          {newsItem.data.title}
+        </span>
+
+      </a>
+    </li>
+  ))}
+</ul>

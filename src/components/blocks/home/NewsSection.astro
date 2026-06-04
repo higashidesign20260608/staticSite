@@ -1,0 +1,22 @@
+---
+import BaseSection from "./BaseSection.astro";
+import NewsList from "../NewsList.astro";
+import { getLatestNews } from "../../../utils/content";
+import type { TypeNews } from "../../../types/type-content-collection";
+import LinkButton from "../../ui/LinkButton.astro";
+
+interface Props {
+  linkButtonPath: string;
+};
+const { linkButtonPath } = Astro.props;
+const latestNews:TypeNews[] = getLatestNews(3);
+---
+
+<BaseSection title="ニュース" titleEng="NEWS" bgColor="">
+  <div class="col-span-4 md:col-span-8 lg:col-span-12">
+    <NewsList news={latestNews} />
+  </div>
+  <div class="col-span-4 md:col-span-8 lg:col-span-12 mx-auto mt-4">
+    <LinkButton href={linkButtonPath} dispName="ニュース一覧へ" size="m" />
+  </div>
+</BaseSection>

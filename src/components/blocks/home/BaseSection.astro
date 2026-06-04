@@ -1,0 +1,20 @@
+---
+interface Props {
+  title: string;
+  titleEng: string;
+  bgColor?: string;
+};
+const {title, titleEng, bgColor = "bg-white" } = Astro.props;
+---
+
+<section class={`w-full py-15 ${bgColor}`}>
+  <div class="container-main">
+    <div class="grid-main">
+      <div class="col-span-4 md:col-span-8 lg:col-span-12">
+        <p class="mb-1 text-center">{titleEng}</p>
+        <p class="text-4xl text-center">{title}</p>
+      </div>
+      <slot />
+    </div>
+  </div>
+</section>

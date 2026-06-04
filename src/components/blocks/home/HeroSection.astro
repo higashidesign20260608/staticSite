@@ -1,0 +1,38 @@
+---
+import LinkButton from "../../ui/LinkButton.astro"
+import Motion from "../../ui/Motion.astro";
+
+interface Props {
+  linkButtonPath: string;
+}
+
+const { linkButtonPath } = Astro.props;
+---
+
+
+<section class="overflow-hidden relative">
+  <div class="absolute inset-0">
+    <img src="hero-img.webp" alt="heroImg"
+      class="w-full h-full object-cover"
+    >
+    <div class="absolute inset-0 bg-linear-to-r from-white/80 to-white/10" />
+  </div>
+  <div class="relative mx-auto pt-50 pb-40 container-main">
+    <Motion>
+    <div class="grid-main">
+      
+        <div class="col-span-4 md:col-span-8 lg:col-span-12">
+            <p class="text-5xl mb-4">ハンドメイドBlog</p>
+            <p class="leading-6 mb-1">
+              毛糸の温もりを感じるハンドメイド作品と、<br />
+              手仕事の楽しさをお届けするブログです。
+            </p>
+        </div>
+        <div class="col-span-3 mr-auto">
+          <LinkButton href={linkButtonPath} dispName="ブログを読む" size="m"/>
+        </div>
+      
+    </div>
+    </Motion>
+  </div>
+</section>

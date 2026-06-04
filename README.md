@@ -41,3 +41,29 @@ All commands are run from the root of the project, from a terminal:
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+
+
+↓仮置き（要検討）
+# プロジェクト構成ガイド
+
+## ディレクトリ構造
+- `src/components/`: 再利用可能なUIコンポーネント
+  - `ui/`: 基本的なUIコンポーネント（Button, Input等）
+  - `blocks/`: 複合コンポーネント（Card, Modal等）
+  - `sections/`: ページのセクション（Hero, Features等）
+- `src/layouts/`: ページレイアウト
+- `src/pages/`: ルーティング用ページ
+- `src/styles/`: グローバルスタイルとスタイル変数
+- `src/utils/`: ユーティリティ関数
+- `public/`: 静的アセット（画像、フォント等）
+
+## 命名規則
+1. コンポーネントファイル: パスカルケース（例: `Button.astro`）
+2. ユーティリティファイル: キャメルケース（例: `formatDate.js`）
+3. ページファイル: ケバブケース（例: `contact-us.astro`）
+
+## インポート順序
+1. 外部ライブラリ
+2. Astroコンポーネント
+3. ローカルコンポーネント
+4. スタイルとアセット

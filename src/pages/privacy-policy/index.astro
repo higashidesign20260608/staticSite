@@ -1,0 +1,151 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro"
+import MainLayout from "../../layouts/MainLayout.astro"
+const url = Astro.url.href;
+
+const pageTitle = "プライバシーポリシー"
+const pageTitleEng = `PRIVACY-POLICY`
+const pageDescription = "プライバシーポリシーページです"
+---
+
+<BaseLayout pageTitle={pageTitle} pageDescription={pageDescription} ogpType="article" ogpUrl={url}>
+	<MainLayout currentPageUrl={url} pageTitle={pageTitle} pageTitleEng={pageTitleEng} shareSnsText={pageDescription}>
+		<div class="col-span-4 md:col-span-8 lg:col-span-12 content-html">
+			<h2>
+				プライバシーポリシー
+			</h2>
+			<p>
+				Monberable（以下、「当サイト」）では、利用者の個人情報の重要性を認識し、適切な保護と管理を行うため、本プライバシーポリシーを定めます。
+			</p>
+			<ul class="flex flex-col gap-10 mt-10">
+				<li>
+					<h3>1．個人情報の利用目的</h3>
+					<ul>
+						<li>当サイトでは、お問い合わせフォームを通じて、以下の情報を取得する場合があります。</li>
+						<ul>
+							<li>・お名前</li>
+							<li>・メールアドレス</li>
+							<li>・お問い合わせ内容</li>
+						</ul>
+						<li>取得した情報は以下の目的で利用します。</li>
+						<ul>
+							<li>・お問い合わせへの回答</li>
+							<li>・メールアドレス</li>
+							<li>・必要な連絡のため</li>
+						</ul>
+					</ul>
+				</li>
+
+				<li>
+					<h3>2．個人情報の第三者提供</h3>
+					<ul>
+						<li>取得した個人情報を、以下の場合を除き第三者に提供することはありません。</li>
+						<ul>
+							<li>本人の同意がある場合</li>
+							<li>法令に基づき開示が必要となる場合</li>
+						</ul>
+					</ul>
+				</li>
+
+				<li>
+					<h3>3．個人情報の管理</h3>
+					<ul>
+						<li>当サイトは、利用者から取得した個人情報を適切に管理し、漏えい、紛失、改ざんなどの防止に努めます。</li>
+					</ul>
+				</li>
+
+				<li>
+					<h3>4．Cookie（クッキー）について</h3>
+					<ul>
+						<li>当サイトではアクセス解析や広告配信において</li>
+						<li>ブラウザの設定により Cookie を無効化することも可能です。</li>
+					</ul>
+				</li>
+
+				<li>
+					<h3>5．外部サービスについて</h3>
+					<ul>
+						<li>当サイトでは、アクセス解析ツール（例：Google Analytics）を利用する場合があります。</li>
+						<li>これらのサービスにより収集されるデータは、各サービス提供元のプライバシーポリシーに基づき管理されます。</li>
+					</ul>
+				</li>
+
+				<li>
+					<h3>6．プライバシーポリシーの変更</h3>
+					<ul>
+						<li>必要に応じて本ポリシーの内容を変更することがあります。</li>
+						<li>最新のプライバシーポリシーは当ページにて公開します。</li>
+					</ul>
+				</li>
+			</ul>
+
+			<h2 class="mt-20">
+				免責事項
+			</h2>
+
+			<ul class="flex flex-col gap-10 mt-10">
+				<li>
+					<h3>1．情報の正確性について</h3>
+					<ul>
+						<li>当サイトに掲載している情報は、正確な内容を提供するよう努めておりますが、必ずしも正確性・完全性を保証するものではありません。</li>
+						<li>掲載内容によって生じた損害について、当サイトは一切の責任を負いかねます。</li>
+					</ul>
+				</li>
+
+				<li>
+					<h3>2．リンク先の外部サイトについて</h3>
+					<ul>
+						<li>当サイトから外部サイトへリンクする場合があります。</li>
+						<li>外部サイトの内容について当サイトは一切の責任を負いません。</li>
+					</ul>
+				</li>
+
+				<li>
+					<h3>3．著作権について</h3>
+					<ul>
+						<li>当サイトに掲載している文章・画像などの著作権は、運営者に帰属します。</li>
+						<li>無断転載・無断使用を禁止します。</li>
+					</ul>
+				</li>
+
+				<li>
+					<h3>4．リンクについて</h3>
+					<ul>
+						<li>当サイトは基本的にリンクフリーです。リンクを行う場合の許可や連絡は不要です。</li>
+						<li>ただし、インラインフレームの仕様や画像の直リンクはご遠慮ください。</li>
+					</ul>
+				</li>
+
+				<li>
+					<h3>5．コメントについて</h3>
+					<ul>
+						<li>当サイトはコメント機能を設置していません。</li>
+					</ul>
+				</li>
+
+				<li>
+					<h3>6．免責事項の変更</h3>
+					<ul>
+						<li>必要に応じて、本免責事項の内容を変更する場合があります。</li>
+						<li>最新の免責事項は当ページにて公開します。</li>
+					</ul>
+				</li>
+			</ul>
+
+
+			<h2 class="mt-20">
+				お問い合わせ先
+			</h2>
+			<ul>
+				<li>個人情報の取扱いに関する相談や苦情等のお問い合わせは、下記までお願いいたします。</li>
+				<ul>
+					<li>運営者：Monberable</li>
+					<li>連絡先：<a href="/contact/" class="text-blue-300">お問い合わせフォーム</a></li>
+				</ul>
+			</ul>
+
+			<p class="formulate">2026年6月1日：策定・施行</p>
+
+		</div>		
+	</MainLayout>
+</BaseLayout>

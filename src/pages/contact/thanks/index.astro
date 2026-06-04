@@ -1,0 +1,25 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro"
+import LinkButton from "../../../components/ui/LinkButton.astro";
+const url = Astro.url.href;
+
+const pageTitle = "お問い合わせ"
+const pageDescription = "お問い合わせ"
+
+---
+
+<BaseLayout pageTitle={pageTitle} pageDescription={pageDescription} ogpType="article" ogpUrl={url}>
+  <main class="pt-60 bg-base-c h-lvh flex flex-col">
+    <div class="text-center">
+      <p class="mb-4">
+        お問い合わせありがとうございます。
+      </p>
+      <p>
+        通常、72時間以内にご返信させていただきます。
+      </p>
+    </div>
+    <div class="mx-auto my-10">
+      <LinkButton href="/" dispName="ホームへ" size="m"/>
+    </div>
+  </main>
+</BaseLayout>

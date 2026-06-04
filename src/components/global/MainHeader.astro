@@ -1,0 +1,42 @@
+---
+import Breadcrumb from "../ui/Breadcrumb.astro";
+
+interface Props {
+  currentPageUrl: string;
+  pageTitle: string;
+  pageTitleEng: string;
+  pageSubTitle?: string;
+  isPreview?: boolean;
+}
+const { currentPageUrl, pageTitle, pageTitleEng, pageSubTitle = "", isPreview = false } = Astro.props;
+
+---
+
+<div
+  class="
+    grid-main
+    pb-10
+  "
+>
+  <div class="col-span-4 md:col-span-8 lg:col-span-12">
+    <Breadcrumb currentPageUrl={currentPageUrl} isPreview={isPreview} />
+  </div>
+    <div class="col-span-4 md:col-span-8 lg:col-span-12 flex">
+      <div>
+        <p class="mb-1">{pageTitleEng}</p>
+        <h1
+          class="
+            text-left
+            text-4xl
+          "
+        >
+          {pageTitle}
+        </h1>
+      </div>
+      {pageSubTitle === "" ?
+        ""
+      :
+        <span class="self-end text-xl ml-3">{`- ${pageSubTitle} -`}</span>
+      }
+    </div>
+</div>

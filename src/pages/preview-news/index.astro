@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import MainLayout from '../../layouts/MainLayout.astro';
+
+const url = Astro.url.href;
+const pageTitle = "プレビュー";
+const pageDescription = "プレビュー";
+const pageTitleEng = `NEWS`
+
+---
+
+<BaseLayout pageTitle={pageTitle} pageDescription={pageDescription} ogpType="article" ogpUrl={url}>
+	<MainLayout currentPageUrl={url} pageTitle={pageTitle} pageTitleEng={pageTitleEng} shareSnsText={pageDescription} isPreview={true}>
+		<article class="col-span-4 md:col-span-8 lg:col-span-12 mb-8">
+			<div class="flex gap-4 mb-8">
+				<span id="newsPublished" class="text-xs py-1">プレビュー</span>
+				<span id="newsCategory" class="py-1 px-3 rounded-md text-xs border">プレビュー</span>
+			</div>
+			<div id="newsContent" class="content-html">プレビュー</div>
+		</article>
+	</MainLayout>
+</BaseLayout>
+
+
+<script>
+  import { getNewsDetail } from '../../library/microcms';
+
+  const params = new URLSearchParams(window.location.search);
+  const contentId = params.get("contentId");
+  const draftKey = params.get("draftKey");
+
+	if (!contentId && !draftKey) {
+		alert("CMSよりプレビュー実施してください");
+	}
+	if (contentId && !draftKey) {
+		alert("下書きのプレビューではありません");
+	}
+	
+  if (contentId && draftKey) {
+    getNewsDetail(contentId, { draftKey }).then((data) => {
+
+			if (!data) {
+				alert("下書きデータが取得できませんでした");
+				return;
+			}
+			// head
+			const headDescription = document.querySelector('meta[name="description"]');
+			const headOgTitle = document.querySelector('meta[property="og:title"]');
+			const headOgDescription = document.querySelector('meta[property="og:description"]');
+
+			document.title = data.title;
+			headDescription && (headDescription.setAttribute('content', data.description));
+			headOgTitle && (headOgTitle.setAttribute('content', `${data.meta.title} | Monberable`));
+			headOgDescription && (headOgDescription.setAttribute('content', data.meta.description));
+
+			// body
+			const newsTitleElement = document.querySelector('h1');
+			const newsPublishedElement = document.getElementById("newsPublished");
+			const newsCategoryElement = document.getElementById("newsCategory");
+			const newsContent = document.getElementById("newsContent");
+
+			newsTitleElement && (newsTitleElement.innerHTML = data.title);
+			newsPublishedElement && (newsPublishedElement.innerHTML = new Date().toLocaleDateString("sv-SE"));
+			newsCategoryElement && (newsCategoryElement.innerHTML = data.category.name);
+			newsContent && (newsContent.innerHTML = data.content);
+    });
+  }
+</script>

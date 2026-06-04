@@ -1,0 +1,44 @@
+---
+import type { metaProps } from "../components/global/Head.astro";
+import GlobalHead from "../components/global/Head.astro";
+import GlobalHeader from "../components/global/Header.astro";
+import GlobalFooter from "../components/global/Footer.astro";
+import { getNavigations } from "../utils/navigation";
+// @ts-ignore
+import "@fontsource-variable/noto-sans-jp"
+import "../styles/global.css";
+import type { ItfNavigation } from "../types/type-navigation";
+const headerNavigations: ItfNavigation[] = getNavigations([ "home", "news", "blog", "shop", "contact" ]);
+const footerNavigations: ItfNavigation[] = getNavigations([ "home", "news", "blog", "shop", "contact" ]);
+const subFooterNavigations: ItfNavigation[] = getNavigations([ "privacy-policy" ]);
+interface Props extends metaProps {};
+const { ...props } = Astro.props;
+const aaa = props.ogpUrl;
+---
+
+<html lang="ja" class="size-full m-0 p-0">
+	<GlobalHead
+		pageTitle={props.pageTitle}
+		pageDescription={props.pageDescription}
+		ogpType={props.ogpType}
+		ogpUrl={props.ogpUrl}
+		ogpImageUrl={props.ogpImageUrl}
+	/>
+	<body class="box-border text-sm size-full m-0 p-0 bg-base-c">
+		<GlobalHeader
+			headerNavigations={headerNavigations}
+			currentPageUrl={aaa}
+		/>
+		<slot />
+		<GlobalFooter
+			footerNavigations={footerNavigations}
+			subFooterNavigations={subFooterNavigations}
+		/>
+	</body>
+</html>
+
+<style>
+  body {
+    font-family: 'Noto Sans JP Variable', sans-serif;
+  }
+	</style>

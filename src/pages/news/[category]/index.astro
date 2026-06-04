@@ -1,0 +1,49 @@
+---
+import { NEWS_COLLECTION } from '../../../constants/constant-content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import MainLayout from '../../../layouts/MainLayout.astro';
+import CategoryNav from '../../../components/blocks/CategoryNav.astro';
+import NewsList from '../../../components/blocks/NewsList.astro';
+import type { TypeNews } from '../../../types/type-content-collection';
+import { getSubNavigationsOfNavigation } from '../../../utils/navigation';
+import type { ItfNavigation } from '../../../types/type-navigation';
+const url = Astro.url.href;
+const subNavigations: ItfNavigation[] = getSubNavigationsOfNavigation("news");
+interface ItfCategoryInfo {
+	categoryName: string;
+	categoryLabel: string;
+};
+export async function getStaticPaths() {
+  const categoryInfos: ItfCategoryInfo[] = [...new Set(NEWS_COLLECTION.map((newsItem: TypeNews) => ({categoryName: newsItem.data.category.id, categoryLabel: newsItem.data.category.name})))];
+	return (
+		categoryInfos.map((categoryInfo: ItfCategoryInfo) => {
+			const filteredCategoryNameNews = NEWS_COLLECTION.filter((newsItem: TypeNews) => newsItem.data.category.id.includes(categoryInfo.categoryName));
+			return {
+				params: {category: categoryInfo.categoryName},
+				props: {dynamicNews: filteredCategoryNameNews, categoryLabel: categoryInfo.categoryLabel},
+			}
+		})
+	)
+};
+
+const { category } = Astro.params;
+const { dynamicNews, categoryLabel } = Astro.props;
+
+const pageTitle = "ニュース";
+const pageTitleEng = `NEWS`
+const pageDescription = `ニュース（${category}）ページです。`;
+---
+
+<BaseLayout pageTitle={`${pageTitle} | お知らせ`} pageDescription={pageDescription} ogpType="article" ogpUrl={url}>
+	<MainLayout currentPageUrl={url} pageTitle={pageTitle} pageTitleEng={pageTitleEng} pageSubTitle={categoryLabel} shareSnsText={pageDescription}>
+		<aside class="col-span-4 md:col-span-2 lg:col-span-2 flex flex-col gap-12">
+			<div>
+				<p class="text-xl mb-6">カテゴリ</p>
+				<CategoryNav navigationNames={"news"} subNavigations={subNavigations} />
+			</div>
+		</aside>
+		<section class="col-span-4 md:col-span-6 lg:col-span-10">
+			<NewsList news={[...dynamicNews].reverse()} />
+		</section>
+	</MainLayout>
+</BaseLayout>

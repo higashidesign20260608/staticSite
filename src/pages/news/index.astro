@@ -1,0 +1,30 @@
+---
+import { NEWS_COLLECTION } from "../../constants/constant-content";
+import BaseLayout from "../../layouts/BaseLayout.astro"
+import MainLayout from "../../layouts/MainLayout.astro"
+import CategoryNav from "../../components/blocks/CategoryNav.astro";
+import NewsList from "../../components/blocks/NewsList.astro";
+
+import { getSubNavigationsOfNavigation } from "../../utils/navigation";
+import type { ItfNavigation } from "../../types/type-navigation";
+
+const url = Astro.url.href;
+const subNavigations: ItfNavigation[] = getSubNavigationsOfNavigation("news");
+const pageTitle = "ニュース"
+const pageTitleEng = `NEWS`
+const pageDescription = "ニュース"
+---
+
+<BaseLayout pageTitle={pageTitle} pageDescription={pageDescription} ogpType="article" ogpUrl={url}>
+	<MainLayout currentPageUrl={url} pageTitle={pageTitle} pageTitleEng={pageTitleEng} shareSnsText={pageDescription}>
+		<aside class="col-span-4 md:col-span-2 lg:col-span-2 flex flex-col gap-12">
+			<div>
+				<p class="text-xl mb-6">カテゴリ</p>
+				<CategoryNav navigationNames={"news"} subNavigations={subNavigations} />
+			</div>
+		</aside>
+		<section class="col-span-4 md:col-span-6 lg:col-span-10">
+			<NewsList news={[...NEWS_COLLECTION].reverse()} />
+		</section>
+	</MainLayout>
+</BaseLayout>

@@ -1,0 +1,28 @@
+---
+import { getMySns } from '../../utils/my-sns';
+import type { TypeMySnsNames } from '../../constants/constant-my-sns';
+import type { ItfMySns } from '../../types/type-my-sns';
+export interface MySnsProps {
+  snsName: TypeMySnsNames;
+};
+interface Props extends MySnsProps {};
+const { snsName } = Astro.props as Props;
+const mySns: ItfMySns = getMySns(snsName);
+
+---
+<a
+  href={mySns.href}
+  class="
+    flex
+    justify-center
+    items-center
+    p-2
+    rounded-full
+    duration-300
+    bg-white/50
+    active:bg-black/10
+    hover:-translate-y-1
+  "
+>
+  <img src={mySns.iconImgSrc} alt={mySns.iconImgAlt} class="size-10 md:size-7.5">
+</a>

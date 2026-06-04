@@ -1,0 +1,45 @@
+---
+import { NEWS_COLLECTION } from '../../../constants/constant-content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import MainLayout from '../../../layouts/MainLayout.astro';
+import { render } from 'astro:content';
+import type { TypeNews } from '../../../types/type-content-collection';
+import { getSubNavigationsOfNavigation } from '../../../utils/navigation';
+import type { ItfNavigation } from '../../../types/type-navigation';
+
+const url = Astro.url.href;
+const subNavigations: ItfNavigation[] = getSubNavigationsOfNavigation("news");
+
+export async function getStaticPaths() {
+	return (
+		NEWS_COLLECTION.map((newsItem: TypeNews) => {
+			return {
+				params: {category: newsItem.data.category.id, slug: newsItem.id},
+				props: {dynamicNews: newsItem},
+			}
+		})
+	)
+};
+
+const { category } = Astro.params;
+const { dynamicNews } = Astro.props;
+const content: string = dynamicNews.data.content;
+
+const pageTitle = `${dynamicNews.data.title} | ${dynamicNews.data.category.name} | お知らせ`;
+const pageTitleEng = `NEWS`
+const pageDescription = `${dynamicNews.data.description}`;
+---
+
+<BaseLayout pageTitle={pageTitle} pageDescription={pageDescription} ogpType="article" ogpUrl={url}>
+	<MainLayout currentPageUrl={url} pageTitle={dynamicNews.data.title} pageTitleEng={pageTitleEng} shareSnsText={pageDescription}>
+		<article class="col-span-4 md:col-span-8 lg:col-span-12 mb-8">
+			<div class="flex gap-4 mb-8">
+				<span class="text-xs py-1">{dynamicNews.data.publishedAt.substring(0,10)}</span>
+				<span class="py-1 px-3 rounded-md text-xs border">
+					{dynamicNews.data.category.name}
+				</span>
+			</div>
+			<div class="content-html" set:html={content}></div>
+		</article>
+	</MainLayout>
+</BaseLayout>

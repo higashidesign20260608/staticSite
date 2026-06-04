@@ -1,17 +1,28 @@
 ---
+import BaseLayout from "../layouts/BaseLayout.astro"
+import { getNavigation } from "../utils/navigation"
+import type { ItfNavigation } from "../types/type-navigation";
+import HeroSection from "../components/blocks/home/HeroSection.astro";
+import NewsSection from "../components/blocks/home/NewsSection.astro";
+import BlogSection from "../components/blocks/home/BlogSection.astro";
+import ShopSection from "../components/blocks/home/ShopSection.astro";
+import AboutSection from "../components/blocks/home/AboutSection.astro";
+const url = Astro.url.href;
 
+const blogNavigation: ItfNavigation = getNavigation("blog");
+const newsNavigation: ItfNavigation = getNavigation("news");
+const shopNavigation: ItfNavigation = getNavigation("shop");
+
+const pageTitle = "Top"
+const pageDescription = "topdesu"
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout pageTitle={pageTitle} pageDescription={pageDescription} ogpType="website" ogpUrl={url}>
+	<main>
+		<HeroSection linkButtonPath={blogNavigation.path} />
+		<NewsSection linkButtonPath={newsNavigation.path} />
+		<BlogSection linkButtonPath={blogNavigation.path} />
+		<ShopSection linkButtonPath={shopNavigation.path} />
+		<AboutSection />
+	</main>
+</BaseLayout>

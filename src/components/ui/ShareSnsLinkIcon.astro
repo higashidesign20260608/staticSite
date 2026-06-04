@@ -1,0 +1,33 @@
+---
+// import { getSnsInfo, type TypeSnsNames } from "../../utils/sns-info";
+
+import { getShareSns } from "../../utils/share-sns";
+import type { TypeShareSnsNames } from "../../constants/constant-share-sns";
+import type { ItfShareSns } from "../../types/type-share-sns";
+
+export interface ShareSnsProps {
+  snsName: TypeShareSnsNames;
+  currentPageUrl: string;
+  shareSnsText: string;
+};
+interface Props extends ShareSnsProps {};
+const { snsName, currentPageUrl, shareSnsText } = Astro.props as Props;
+const shareSns: ItfShareSns = getShareSns(snsName, currentPageUrl, shareSnsText);
+
+---
+<a
+  href={shareSns.href}
+  class="
+    flex
+    justify-center
+    items-center
+    p-2
+    rounded-full
+    duration-300
+    bg-white/50
+    active:bg-black/10
+    hover:-translate-y-1
+  "
+>
+  <img src={shareSns.iconImgSrc} alt={shareSns.iconImgAlt} class="size-10 md:size-7.5">
+</a>

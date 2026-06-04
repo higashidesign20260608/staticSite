@@ -1,0 +1,19 @@
+---
+import BlogPostHeader from "../components/global/BlogPostHeader.astro";
+import Motion from "../components/ui/Motion.astro";
+interface Props {
+  currentPageUrl: string;
+  isPreview?: boolean;
+};
+
+const { currentPageUrl, isPreview = false } = Astro.props;
+---
+
+<main class="pt-20 bg-base-c">
+  <Motion>
+    <div class="container-main">
+      <BlogPostHeader currentPageUrl={currentPageUrl} isPreview={isPreview} />
+      <slot />
+    </div>
+  </Motion>
+</main>

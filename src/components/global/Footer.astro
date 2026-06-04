@@ -1,0 +1,156 @@
+---
+import FooterLogo from "../ui/Logo.astro";
+import type { ItfNavigation } from "../../types/type-navigation";
+import MySnsLinkIcon from "../ui/MySnsLinkIcon.astro";
+interface Props {
+	footerNavigations: ItfNavigation[];
+	subFooterNavigations: ItfNavigation[];
+};
+const { footerNavigations, subFooterNavigations } = Astro.props;
+---
+
+
+<footer 
+	id="global-footer"
+	class="
+		pt-10
+		bg-gray-100
+		text-xs
+	"
+>
+	<div class="container-main">
+		<div class="grid-main">
+			<div
+				class="
+					col-span-4
+					flex
+					flex-col
+					justify-center
+					items-center
+					md:justify-start
+					md:items-start
+					md:col-span-2
+					md:col-start-1
+					lg:col-span-3
+					lg:col-start-1
+				"
+			>
+				<FooterLogo />
+				<div
+					class="
+						flex
+						justify-center
+						md:pl-2
+						md:justify-start
+						items-center
+						gap-1.5
+						w-full
+					"
+				>
+					<MySnsLinkIcon snsName={"instagram"} />
+				</div>
+			</div>
+			<div
+				class="
+					col-span-4
+					flex
+					justify-center
+					items-start
+					md:col-span-4
+					md:col-start-3
+					md:pt-2
+					lg:col-span-6
+					lg:col-start-4
+				"
+			>
+				<ul
+					class="
+						flex
+						flex-wrap
+					"
+				>
+					{footerNavigations.map((footerNavigation:ItfNavigation)=>(
+						<li>
+							<a
+								href={footerNavigation.path}
+								ontouchstart=""
+								class="
+									block
+									p-2
+									duration-300
+									active:bg-black/10
+									hover:text-gray-400
+								"
+							>
+								{footerNavigation.label}
+							</a>
+						</li>
+					))}
+				</ul>
+			</div>
+			<div
+				class="
+					col-span-4
+					flex
+					justify-center
+					items-center
+					md:justify-start
+					md:items-start
+					md:col-span-2
+					md:col-start-7
+					md:pt-2
+					lg:col-span-3
+					lg:col-start-10
+				"
+			>
+				<ul
+					class="
+						flex
+						md:flex-col
+					"
+				>
+					{subFooterNavigations.map((subFooterNavigation:ItfNavigation)=>(
+						<li>
+							<a
+								href={subFooterNavigation.path}
+								ontouchstart=""
+								class="
+									block
+									p-2
+									duration-300
+									active:bg-black/10
+									hover:text-gray-400
+								"
+							>
+								{subFooterNavigation.label}
+							</a>
+						</li>
+					))}
+				</ul>
+			</div>
+			<div
+				class="
+					col-span-4
+					flex
+					justify-center
+					items-center
+					py-5
+					border-t-2
+					border-gray-200
+					md:col-span-8
+					lg:col-span-12
+				"
+			>
+				<p
+					class="
+						text-center
+						text-[10px]
+						text-gray-500
+					"
+				>
+					© 2026 Monberable. All Rights Reserved.
+				</p>
+			</div>
+		</div>
+	</div>
+</footer>

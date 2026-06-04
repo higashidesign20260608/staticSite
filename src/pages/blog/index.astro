@@ -1,0 +1,29 @@
+---
+import { BLOG_COLLECTION } from "../../constants/constant-content";
+import BaseLayout from "../../layouts/BaseLayout.astro"
+import MainLayout from "../../layouts/MainLayout.astro"
+import CategoryNav from "../../components/blocks/CategoryNav.astro";
+import BlogList from "../../components/blocks/BlogList.astro";
+import { getSubNavigationsOfNavigation } from "../../utils/navigation";
+import type { ItfNavigation } from "../../types/type-navigation";
+
+const url = Astro.url.href;
+const subNavigations: ItfNavigation[] = getSubNavigationsOfNavigation("blog");
+const pageTitle = "ブログ"
+const pageTitleEng = `BLOG`
+const pageDescription = "ブログ"
+---
+
+<BaseLayout pageTitle={pageTitle} pageDescription={pageDescription} ogpType="article" ogpUrl={url}>
+	<MainLayout currentPageUrl={url} pageTitle={pageTitle} pageTitleEng={pageTitleEng} shareSnsText={pageDescription}>
+		<aside class="col-span-4 md:col-span-2 lg:col-span-2 flex flex-col gap-12">
+			<div>
+				<p class="text-xl mb-6">カテゴリ</p>
+				<CategoryNav navigationNames={"blog"} subNavigations={subNavigations} />
+			</div>
+		</aside>
+		<section class="col-span-4 md:col-span-6 lg:col-span-10">
+			<BlogList blogs={[...BLOG_COLLECTION].reverse()} />
+		</section>
+	</MainLayout>
+</BaseLayout>

@@ -1,0 +1,58 @@
+---
+
+import type { ItfNavigation } from "../../types/type-navigation";
+import type { TypeNavigationNames } from "../../constants/constant-navigation";
+const currentPageUrl = Astro.url.href;
+interface Props {
+  navigationNames: TypeNavigationNames;
+  subNavigations: ItfNavigation[];
+};
+const { navigationNames, subNavigations } = Astro.props;
+
+let aaa = "All"
+subNavigations.map((subNavigation:ItfNavigation) => {
+  if (currentPageUrl.includes(subNavigation.path)) {
+    return aaa = subNavigation.label;
+  }
+})
+---
+
+<nav class="p-2">
+  <ul class="flex flex-wrap md:flex-col gap-3">
+    <li>
+      <a
+        href=`/${navigationNames}/`
+        class=`
+        ${aaa === "All" ?
+          "pointer-events-none text-acc-c"
+        :
+          "text-gray-300 hover:text-acc-c"
+        }
+      `
+      >
+        <span class="py-1 px-3 rounded-md text-xs border">
+          すべて
+        </span>
+      </a>
+    </li>
+    {subNavigations.map((subNavigation:ItfNavigation) => (
+      <li>
+        <a
+          href={subNavigation.path}
+          class=`
+            ${aaa === subNavigation.label ?
+              "pointer-events-none text-acc-c"
+            :
+              "text-gray-300 hover:text-acc-c"
+            }
+          `
+        >
+          <span class="py-1 px-3 rounded-md text-xs border">
+            {subNavigation.label}
+          </span>
+        </a>
+      </li>
+    ))}
+    
+  </ul>
+</nav>

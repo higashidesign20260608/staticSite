@@ -1,0 +1,51 @@
+---
+import { BLOG_COLLECTION } from '../../../constants/constant-content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import MainLayout from '../../../layouts/MainLayout.astro';
+import CategoryNav from '../../../components/blocks/CategoryNav.astro';
+import BlogList from '../../../components/blocks/BlogList.astro';
+import type { TypeBlog } from '../../../types/type-content-collection';
+import { getSubNavigationsOfNavigation } from '../../../utils/navigation';
+import type { ItfNavigation } from '../../../types/type-navigation';
+const url = Astro.url.href;
+const subNavigations: ItfNavigation[] = getSubNavigationsOfNavigation("blog");
+interface ItfCategoryInfo {
+	categoryName: string;
+	categoryLabel: string;
+};
+
+export async function getStaticPaths() {
+  const categoryInfos: ItfCategoryInfo[] = [...new Set(BLOG_COLLECTION.map((blog: TypeBlog) => ({categoryName: blog.data.category.id, categoryLabel: blog.data.category.name})))];
+	return (
+		categoryInfos.map((categoryInfo: ItfCategoryInfo) => {
+			const filteredCategoryNameBlogs = BLOG_COLLECTION.filter((blog: TypeBlog) => blog.data.category.id.includes(categoryInfo.categoryName));
+			return {
+				params: {category: categoryInfo.categoryName},
+				props: {dynamicBlogs: filteredCategoryNameBlogs, categoryLabel: categoryInfo.categoryLabel},
+			}
+		})
+	)
+};
+
+const { category } = Astro.params;
+const { dynamicBlogs, categoryLabel } = Astro.props;
+
+const pageTitle = `ブログ`;
+const pageTitleEng = `BLOG`
+const pageDescription = `ブログ（${category}）ページです。`;
+
+---
+
+<BaseLayout pageTitle={`${pageTitle} | ブログ`} pageDescription={pageDescription} ogpType="article" ogpUrl={url}>
+	<MainLayout currentPageUrl={url} pageTitle={pageTitle} pageTitleEng={pageTitleEng} pageSubTitle={categoryLabel} shareSnsText={pageDescription}>
+		<aside class="col-span-4 md:col-span-2 lg:col-span-2 flex flex-col gap-12">
+			<div>
+				<p class="text-xl mb-6">カテゴリ</p>
+				<CategoryNav navigationNames={"blog"} subNavigations={subNavigations} />
+			</div>
+		</aside>
+		<section class="col-span-4 md:col-span-6 lg:col-span-10">
+			<BlogList blogs={[...dynamicBlogs].reverse()} />
+		</section>
+	</MainLayout>
+</BaseLayout>
