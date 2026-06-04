@@ -33,7 +33,7 @@ jobs:
 
       # 4. ビルドされた「distフォルダ」の中身だけをSFTPでXserverへ同期
       - name: Deploy to Xserver via SFTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        uses: easingthemes/ssh-deploy@v5.1.0
         with:
           server: ${{ secrets.SSH_HOSTNAME }}
           username: ${{ secrets.SSH_USERNAME }}
