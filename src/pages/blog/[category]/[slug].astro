@@ -35,9 +35,12 @@ const content: string = dynamicBlogs.data.content;
 const latestBlogs: TypeBlog[] = getLatestBlogs(5);
 const pageTitle = `${dynamicBlogs.data.title} | ${dynamicBlogs.data.category.name} | ブログ`;
 const pageDescription = `${dynamicBlogs.data.description}`;
+// const ogpImageUrl = dynamicBlogs.data.meta.image && dynamicBlogs.data.meta.image.url;
+const ogpImageUrl = undefined;
+
 ---
 
-<BaseLayout pageTitle={pageTitle} pageDescription={pageDescription} ogpType="article" ogpUrl={url}>
+<BaseLayout pageTitle={pageTitle} pageDescription={pageDescription} ogpType="article" ogpUrl={url} ogpImageUrl={ogpImageUrl}>
 	<BlogPostLayout currentPageUrl={url}>
 		<div class="grid-main grid-row-3 py-10">
 			<article class=" row-start-1 col-span-4 md:col-span-8 lg:col-span-8">
