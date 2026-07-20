@@ -86,7 +86,7 @@ export const NAVIGATION_OBJ = {
   BLOG: {
     name: "blog",
     label: "ブログ",
-    path: `/blog/`,
+    path: `${baseUrl}/blog/`,
     sub: blogSub
   },
   SHOP: {
@@ -96,7 +96,7 @@ export const NAVIGATION_OBJ = {
     name: "contact", label: "お問い合わせ", path: `/contact/`, sub: null
   },
   PRIVACY_POLICY: {
-    name: "privacy-policy", label: "プライバシーポリシー", path: `${baseUrl}privacy-policy/`, sub: null
+    name: "privacy-policy", label: "プライバシーポリシー", path: `privacy-policy/`, sub: null
   },
 } as const satisfies Record<string,ItfNavigation>;
 
