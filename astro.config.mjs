@@ -14,6 +14,7 @@ export default defineConfig({
   site: "https://monberable.com",
   integrations: [sitemap()],
   outDir: "docs",
+  base: "https://higashidesign20260608.github.io/staticSite/",
 });
 
 
