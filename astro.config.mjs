@@ -11,13 +11,8 @@ export default defineConfig({
     plugins: [tailwindcss()]
   },
 
-  site: "https://monberable.com",
+  site: "https://higashidesign20260608.github.io",
   integrations: [sitemap()],
   outDir: "docs",
-  base: "https://higashidesign20260608.github.io/staticSite/",
+  base: "/staticSite",
 });
-
-
-// http://localhost:4321
-// https://monberable.xsrv.jp
-// monberable.com

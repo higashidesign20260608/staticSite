@@ -5,7 +5,7 @@ export const MY_SNS_OBJ = {
   INSTAGRAM: {
     name: "instagram",
     label: "Instagram",
-    href: "https://www.instagram.com/25.momiji",
+    href: "#",
     iconImgSrc: "/sns-icon/instagram-icon-black.png",
     iconImgAlt: "iconInstagram",
   },
