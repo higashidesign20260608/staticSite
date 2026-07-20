@@ -1,5 +1,7 @@
 ---
 import type { TypeNews } from '../../types/type-content-collection';
+import { baseUrl } from '../../constants/constant-common';
+
 interface Props {
   news: TypeNews[];
 };
@@ -9,7 +11,7 @@ const { news } = Astro.props;
 <ul class="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-9">
   {news.map((newsItem: TypeNews) => (
     <li class="col-span-4 md:col-span-6 lg:col-span-9 border-b py-4 duration-300 hover:scale-101">
-      <a href={`/news/${newsItem.data.category.id}/${newsItem.id}`}
+      <a href={`/${baseUrl}/news/${newsItem.data.category.id}/${newsItem.id}`}
         class="
           md:flex md:gap-6
         "

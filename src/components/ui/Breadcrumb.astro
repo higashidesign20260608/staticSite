@@ -1,6 +1,8 @@
 ---
 import type { ItfNavigationLabelPath } from "../../types/type-navigation";
 import { getBreadcrumbInfoArr } from "../../utils/breadcrumb";
+import { baseUrl } from "../../constants/constant-common";
+
 interface Props {
   currentPageUrl: string;
   isPreview?: boolean;
@@ -14,7 +16,7 @@ const breadcrumbInfoArr = getBreadcrumbInfoArr(currentPageUrl);
     {
       isPreview ?
         <li>
-          <a href="/" class="text-gray-300" >ホーム</a>
+          <a href=`/${baseUrl}/` class="text-gray-300" >ホーム</a>
         </li>
         <p>&gt;</p>
         <li>

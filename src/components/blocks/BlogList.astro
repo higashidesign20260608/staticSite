@@ -1,6 +1,7 @@
 ---
-import { Image } from 'astro:assets';
 import type { TypeBlog } from '../../types/type-content-collection';
+import { baseUrl } from '../../constants/constant-common';
+
 interface Props {
   blogs: TypeBlog[];
 };
@@ -10,7 +11,7 @@ const { blogs } = Astro.props;
 <ul class="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-9 gap-7">
   {blogs.map((blog: TypeBlog) => (
     <li class="col-span-4 md:col-span-3 lg:col-span-3 rounded-xl shadow-sm hover:-translate-y-1 duration-300">
-      <a href={`/blog/${blog.data.category.id}/${blog.id}`}
+      <a href={`/${baseUrl}/blog/${blog.data.category.id}/${blog.id}`}
         class="
           
         "

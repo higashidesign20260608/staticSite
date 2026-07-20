@@ -2,6 +2,8 @@
 
 import type { ItfNavigation } from "../../types/type-navigation";
 import type { TypeNavigationNames } from "../../constants/constant-navigation";
+import { baseUrl } from "../../constants/constant-common";
+
 const currentPageUrl = Astro.url.href;
 interface Props {
   navigationNames: TypeNavigationNames;
@@ -21,7 +23,7 @@ subNavigations.map((subNavigation:ItfNavigation) => {
   <ul class="flex flex-wrap md:flex-col gap-3">
     <li>
       <a
-        href=`/${navigationNames}/`
+        href=`/${baseUrl}/${navigationNames}/`
         class=`
         ${aaa === "All" ?
           "pointer-events-none text-acc-c"

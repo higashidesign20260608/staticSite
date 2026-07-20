@@ -1,6 +1,7 @@
 import { BLOG_COLLECTION, NEWS_COLLECTION } from "./constant-content";
 import type { ItfNavigation } from "../types/type-navigation"
 import type { TypeBlog, TypeNews } from "../types/type-content-collection";
+import { baseUrl } from "./constant-common";
 
 // NAVIGATION_OBJ.BLOG.subを作成
 const blogSub: ItfNavigation[] = [
@@ -13,7 +14,7 @@ const blogSub: ItfNavigation[] = [
         {
           name: categoryName,
           label: blog.data.category.name,
-          path: `/blog/${categoryName}/`,
+          path: `${baseUrl}/blog/${categoryName}/`,
           sub: getBlogsByCategoryObj(categoryName),
         },
       ];
@@ -28,7 +29,7 @@ function getBlogsByCategoryObj(categoryName:string): ItfNavigation[] {
     {
       name: blog.id,
       label: blog.data.title,
-      path: `/blog/${blog.data.category.name}/${blog.id}/`,
+      path: `${baseUrl}/blog/${blog.data.category.name}/${blog.id}/`,
       sub: null,
     }
   ))
@@ -46,7 +47,7 @@ const newsSub: ItfNavigation[] = [
         {
           name: categoryName,
           label: newsItem.data.category.name,
-          path: `/news/${categoryName}/`,
+          path: `${baseUrl}/news/${categoryName}/`,
           sub: getNewsByCategoryObj(categoryName),
         },
       ];
@@ -61,7 +62,7 @@ function getNewsByCategoryObj(categoryName:string): ItfNavigation[] {
     {
       name: newsItem.id,
       label: newsItem.data.title,
-      path: `/news/${newsItem.data.category.id}/${newsItem.id}/`,
+      path: `${baseUrl}/news/${newsItem.data.category.id}/${newsItem.id}/`,
       sub: null,
     }
   ))
@@ -73,29 +74,29 @@ export const NAVIGATION_OBJ = {
   HOME: {
     name: "home",
     label: "ホーム",
-    path: "/",
+    path: `${baseUrl}/`,
     sub: null
   },
   NEWS: {
     name: "news",
     label: "ニュース",
-    path: "/news/",
+    path: `${baseUrl}/news/`,
     sub: newsSub
   },
   BLOG: {
     name: "blog",
     label: "ブログ",
-    path: "/blog/",
+    path: `${baseUrl}/blog/`,
     sub: blogSub
   },
   SHOP: {
-    name: "shop", label: "ショップ", path: "/shop/", sub: null
+    name: "shop", label: "ショップ", path: `${baseUrl}/shop/`, sub: null
   },
   CONTACT: {
-    name: "contact", label: "お問い合わせ", path: "/contact/", sub: null
+    name: "contact", label: "お問い合わせ", path: `${baseUrl}/contact/`, sub: null
   },
   PRIVACY_POLICY: {
-    name: "privacy-policy", label: "プライバシーポリシー", path: "/privacy-policy/", sub: null
+    name: "privacy-policy", label: "プライバシーポリシー", path: `${baseUrl}/privacy-policy/`, sub: null
   },
 } as const satisfies Record<string,ItfNavigation>;
 

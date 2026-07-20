@@ -1,5 +1,6 @@
 import { getAllNavigationLabelPath } from "./navigation";
 import type { ItfNavigationLabelPath } from "../types/type-navigation";
+import { baseUrl } from "../constants/constant-common";
 
 const allNavigationLabelPath: ItfNavigationLabelPath[] = getAllNavigationLabelPath();
 
@@ -11,11 +12,11 @@ export function getBreadcrumbInfoArr (currentPageUrl: string): ItfNavigationLabe
   };
 
   // currentPageUrlより、必要な値を抽出
-  // 1. https://monberable.xsrv.jp/blog/categoryA
-  // 2. https:, "", monberable.xsrv.jp, blog, categoryA, ""
+  // 1. https://higashidesign20260608.github.io/staticSite/blog/categoryA
+  // 2. https:, "", higashidesign20260608.github.io, staticSite, blog, categoryA, ""
   // 3. blog, categoryA, ""
   // 4. blog, categoryA
-  const splitPageUrlArr: string[] = currentPageUrl.split("/").toSpliced(0,3);
+  const splitPageUrlArr: string[] = currentPageUrl.split("/").toSpliced(0,4);
   // 最後尾要素に空文字("")が存在する場合があるので、存在する場合は削除
   if (splitPageUrlArr[splitPageUrlArr.length-1] === "") {
     splitPageUrlArr.pop();
@@ -25,7 +26,7 @@ export function getBreadcrumbInfoArr (currentPageUrl: string): ItfNavigationLabe
   // 1. blog, categoryA
   // 2. /blog/, /blog/categoryA/
   // 3. /, /blog/, /blog/categoryA/
-  let pathTemp = "/";
+  let pathTemp = `/${baseUrl}/`;
   const breadcrumbForPaths: string[] = splitPageUrlArr.map((splitPageUrl: string) => {
     let returnPath;
     returnPath = `${pathTemp}${splitPageUrl}/`;
