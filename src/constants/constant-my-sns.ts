@@ -7,7 +7,7 @@ export const MY_SNS_OBJ = {
     name: "instagram",
     label: "Instagram",
     href: "#",
-    iconImgSrc: `${baseUrl}/sns-icon/instagram-icon-black.png`,
+    iconImgSrc: `/${baseUrl}/sns-icon/instagram-icon-black.png`,
     iconImgAlt: "iconInstagram",
   },
 } as const satisfies Record<string, ItfMySns>;
