@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro"
 import LinkButton from "../../../components/ui/LinkButton.astro";
+import { baseUrl } from "../../../constants/constant-common";
 const url = Astro.url.href;
 
 const pageTitle = "お問い合わせ"
@@ -19,7 +20,7 @@ const pageDescription = "お問い合わせ"
       </p>
     </div>
     <div class="mx-auto my-10">
-      <LinkButton href="/" dispName="ホームへ" size="m"/>
+      <LinkButton href=`/${baseUrl}/` dispName="ホームへ" size="m"/>
     </div>
   </main>
 </BaseLayout>

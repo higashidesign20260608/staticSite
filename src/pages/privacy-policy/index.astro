@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro"
 import MainLayout from "../../layouts/MainLayout.astro"
+import { baseUrl } from "../../constants/constant-common";
 const url = Astro.url.href;
 
 const pageTitle = "プライバシーポリシー"
@@ -140,7 +141,7 @@ const pageDescription = "プライバシーポリシーページです"
 				<li>個人情報の取扱いに関する相談や苦情等のお問い合わせは、下記までお願いいたします。</li>
 				<ul>
 					<li>運営者：Monberable</li>
-					<li>連絡先：<a href="/contact/" class="text-blue-300">お問い合わせフォーム</a></li>
+					<li>連絡先：<a href=`/${baseUrl}/contact/` class="text-blue-300">お問い合わせフォーム</a></li>
 				</ul>
 			</ul>
 

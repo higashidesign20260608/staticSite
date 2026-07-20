@@ -14,7 +14,7 @@ const blogSub: ItfNavigation[] = [
         {
           name: categoryName,
           label: blog.data.category.name,
-          path: `${baseUrl}/blog/${categoryName}/`,
+          path: `/${baseUrl}/blog/${categoryName}/`,
           sub: getBlogsByCategoryObj(categoryName),
         },
       ];
@@ -29,7 +29,7 @@ function getBlogsByCategoryObj(categoryName:string): ItfNavigation[] {
     {
       name: blog.id,
       label: blog.data.title,
-      path: `${baseUrl}/blog/${blog.data.category.name}/${blog.id}/`,
+      path: `/${baseUrl}/blog/${blog.data.category.name}/${blog.id}/`,
       sub: null,
     }
   ))
@@ -47,7 +47,7 @@ const newsSub: ItfNavigation[] = [
         {
           name: categoryName,
           label: newsItem.data.category.name,
-          path: `${baseUrl}/news/${categoryName}/`,
+          path: `/${baseUrl}/news/${categoryName}/`,
           sub: getNewsByCategoryObj(categoryName),
         },
       ];
@@ -62,7 +62,7 @@ function getNewsByCategoryObj(categoryName:string): ItfNavigation[] {
     {
       name: newsItem.id,
       label: newsItem.data.title,
-      path: `${baseUrl}/news/${newsItem.data.category.id}/${newsItem.id}/`,
+      path: `/${baseUrl}/news/${newsItem.data.category.id}/${newsItem.id}/`,
       sub: null,
     }
   ))

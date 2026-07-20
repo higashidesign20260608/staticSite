@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro"
 import MainLayout from "../../layouts/MainLayout.astro"
+import { baseUrl } from "../../constants/constant-common";
 const url = Astro.url.href;
 
 const pageTitle = "お問い合わせ"
@@ -65,6 +66,8 @@ const pageDescription = "お問い合わせ"
 
 
 <script>
+import { baseUrl } from "../../constants/constant-common";
+
 	const customForm = document.getElementById('google-form');
 	const submitButton = document.getElementById('submitButton') as HTMLButtonElement;
 	
@@ -80,7 +83,7 @@ const pageDescription = "お問い合わせ"
 
 		if (honeypot){
 			console.log("botの可能性があるため送信不可")
-			window.location.href = "/contact/thanks/";
+			window.location.href = `/${baseUrl}/contact/thanks/`;
 			return;
 		}
 
@@ -91,7 +94,7 @@ const pageDescription = "お問い合わせ"
 		})
 
 		.then(() => {
-			window.location.href = "/contact/thanks/";
+			window.location.href = `/${baseUrl}/contact/thanks/`;
 		})
 	})
 </script>

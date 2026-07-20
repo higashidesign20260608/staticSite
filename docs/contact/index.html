@@ -189,7 +189,7 @@
 													duration-500
 													overflow-hidden
 													group-has-aria-expanded/sub-nav-mobile:max-h-lvh
-												"> <li class="mb-2"> <a href="staticSite/news/news/" ontouchstart="" class="
+												"> <li class="mb-2"> <a href="/staticSite/news/news/" ontouchstart="" class="
 																block
 																py-2
 																active:bg-black/5
@@ -240,7 +240,7 @@
 													duration-500
 													overflow-hidden
 													group-has-aria-expanded/sub-nav-mobile:max-h-lvh
-												"> <li class="mb-2"> <a href="staticSite/blog/chat/" ontouchstart="" class="
+												"> <li class="mb-2"> <a href="/staticSite/blog/chat/" ontouchstart="" class="
 																block
 																py-2
 																active:bg-black/5
@@ -425,4 +425,4 @@
 						text-gray-500
 					">
 © 2026 Monberable. All Rights Reserved.
-</p> </div> </div> </div> </footer></body></html> <script type="module">const c=document.getElementById("google-form"),n=document.getElementById("submitButton");c.addEventListener("submit",t=>{t.preventDefault(),n.textContent="送信中...",n.disabled=!0;const o=t.target,e=new FormData(o);if(e.get("honeypot-field")){console.log("botの可能性があるため送信不可"),window.location.href="/contact/thanks/";return}fetch(o.action,{method:"POST",body:e,mode:"no-cors"}).then(()=>{window.location.href="/contact/thanks/"})});</script>
+</p> </div> </div> </div> </footer></body></html> <script type="module">const n="staticSite",s=document.getElementById("google-form"),c=document.getElementById("submitButton");s.addEventListener("submit",t=>{t.preventDefault(),c.textContent="送信中...",c.disabled=!0;const o=t.target,e=new FormData(o);if(e.get("honeypot-field")){console.log("botの可能性があるため送信不可"),window.location.href=`/${n}/contact/thanks/`;return}fetch(o.action,{method:"POST",body:e,mode:"no-cors"}).then(()=>{window.location.href=`/${n}/contact/thanks/`})});</script>
