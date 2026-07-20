@@ -13,7 +13,7 @@ export default defineConfig({
 
   site: "https://monberable.com",
   integrations: [sitemap()],
-  outDir: "doc",
+  outDir: "docs",
 });
 
 
