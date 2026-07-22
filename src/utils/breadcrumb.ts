@@ -35,7 +35,7 @@ export function getBreadcrumbInfoArr (currentPageUrl: string): ItfNavigationLabe
   });
 
   // topページ用のpathを配列先頭に追加
-  breadcrumbForPaths.unshift("/");
+  breadcrumbForPaths.unshift(`/${baseUrl}/`);
   
   // breadcrumbForPaths配列のpathをgetAllLabelPathInfoオブジェクト配列のパスと突き合わせ
   // 合致したオブジェクト抽出
