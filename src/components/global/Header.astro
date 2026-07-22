@@ -9,6 +9,13 @@ interface Props {
 	currentPageUrl: string;
 };
 const { headerNavigations, currentPageUrl } = Astro.props;
+
+console.log(`siteUrl : ${siteUrl}`);
+headerNavigations.map((headerNavigation:ItfNavigation)=>{
+	console.log(`label: ${headerNavigation.label}`)
+	console.log(`name: ${headerNavigation.name}`)
+	console.log(`path: ${headerNavigation.path}`)
+})
 ---
 
 <header id="global-header"
