@@ -13,6 +13,5 @@ export default defineConfig({
 
   site: "https://higashidesign20260608.github.io",
   integrations: [sitemap()],
-  outDir: "docs",
   base: "/staticSite",
 });

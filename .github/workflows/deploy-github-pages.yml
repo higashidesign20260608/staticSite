@@ -1,0 +1,56 @@
+name: Deploy Astro to GitHubPages
+
+on:
+  push:
+    branches:
+      - main
+  repository_dispatch:
+    types:
+      - microcms
+  permissions:
+    contents: read
+    pages: write
+    id-token: write
+  concurrency:
+    group: "pages"
+    cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      # 2. Node.js環境のセットアップ（Astroのビルドに必要）
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24' # プロジェクトのNodeバージョンに合わせて変更してください
+          cache: 'npm'       # npm, yarn, pnpm などに合わせてキャッシュ（高速化）
+
+      # 3. 依存関係のインストールとAstroのビルド
+      - name: Install dependencies and Build
+
+        env:
+          PUBLIC_MICROCMS_SERVICE_DOMAIN: ${{ secrets.PUBLIC_MICROCMS_SERVICE_DOMAIN }}
+          PUBLIC_MICROCMS_API_KEY: ${{ secrets.PUBLIC_MICROCMS_API_KEY }}
+        run: |
+          npm ci            # もし pnpm なら pnpm install、yarn なら yarn install --immutable
+          npm run build     # Astroのビルドを実行（デフォルトで dist/ フォルダが生成されます）
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
