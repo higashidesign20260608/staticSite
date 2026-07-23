@@ -43,7 +43,7 @@ const pageDescription = `ニュース（${category}）ページです。`;
 			</div>
 		</aside>
 		<section class="col-span-4 md:col-span-6 lg:col-span-10">
-			<NewsList news={[...dynamicNews].reverse()} />
+			<NewsList news={[...dynamicNews].sort((a, b) => new Date(b.data.publishedAt).getTime() - new Date(a.data.publishedAt).getTime())} />
 		</section>
 	</MainLayout>
 </BaseLayout>

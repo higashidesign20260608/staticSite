@@ -23,7 +23,7 @@ const pageDescription = "ブログ"
 			</div>
 		</aside>
 		<section class="col-span-4 md:col-span-6 lg:col-span-10">
-			<BlogList blogs={[...BLOG_COLLECTION].reverse()} />
+			<BlogList blogs={[...BLOG_COLLECTION].sort((a, b) => new Date(b.data.publishedAt).getTime() - new Date(a.data.publishedAt).getTime())} />
 		</section>
 	</MainLayout>
 </BaseLayout>
